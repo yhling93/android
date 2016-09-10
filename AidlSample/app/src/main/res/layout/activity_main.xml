@@ -10,7 +10,38 @@
     tools:context="sample.adam.aidlsample.MainActivity">
 
     <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Aidl Sample in Single App"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/setObjectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="30dp"
+        android:text="Set MyObject Through Service"/>
+
+    <Button
+        android:id="@+id/getObjectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/setObjectButton"
+        android:layout_marginTop="30dp"
+        android:text="Get MyObject Through Service"/>
+
+    <TextView
+        android:id="@+id/objectTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/getObjectButton"
+        android:layout_marginTop="30dp"/>
+
 </RelativeLayout>

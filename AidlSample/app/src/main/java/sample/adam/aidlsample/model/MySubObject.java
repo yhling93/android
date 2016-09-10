@@ -3,26 +3,32 @@ package sample.adam.aidlsample.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by yhling on 9/10/16.
  */
 public class MySubObject implements Parcelable {
-    private int[] field1;
-    private List<Integer> field2;
-    private List<Integer> field3;
+    private int[] array;
+    private List<Integer> list1;
+    private List<Integer> list2;
 
-    public MySubObject(int[] field1, List<Integer> field2, List<Integer> field3) {
-        this.field1 = field1;
-        this.field2 = field2;
-        this.field3 = field3;
-    }
+    public MySubObject() {}
 
     protected MySubObject(Parcel in) {
-        field1 = in.createIntArray();
-        in.readList(field2, Integer.class.getClassLoader());
-        in.readList(field3, Integer.class.getClassLoader());
+        array = in.createIntArray();
+        /********************************************************
+         *
+         * Attention!
+         * You should new the List instance first,
+         * otherwise you'll get an NullPointerException when calling readList method
+         *
+         ********************************************************/
+        list1 = new ArrayList<>();
+        list2 = new ArrayList<>();
+        in.readList(list1, Integer.class.getClassLoader());
+        in.readList(list2, Integer.class.getClassLoader());
     }
 
     public static final Creator<MySubObject> CREATOR = new Creator<MySubObject>() {
@@ -44,8 +50,32 @@ public class MySubObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeIntArray(field1);
-        parcel.writeList(field2);
-        parcel.writeList(field3);
+        parcel.writeIntArray(array);
+        parcel.writeList(list1);
+        parcel.writeList(list2);
+    }
+
+    public int[] getArray() {
+        return array;
+    }
+
+    public void setArray(int[] array) {
+        this.array = array;
+    }
+
+    public List<Integer> getList1() {
+        return list1;
+    }
+
+    public void setList1(List<Integer> list1) {
+        this.list1 = list1;
+    }
+
+    public List<Integer> getList2() {
+        return list2;
+    }
+
+    public void setList2(List<Integer> list2) {
+        this.list2 = list2;
     }
 }

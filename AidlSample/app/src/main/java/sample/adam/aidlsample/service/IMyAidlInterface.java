@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /home/yhling/Projects/Adam/android/AidlSample/app/src/main/aidl/sample/adam/aidlsample/IMyAidlInterface.aidl
+ * Original file: /home/adam/Projects/Github/android/AidlSample/app/src/main/aidl/sample/adam/aidlsample/IMyAidlInterface.aidl
  */
 package sample.adam.aidlsample.service;
 public interface IMyAidlInterface extends android.os.IInterface
@@ -42,26 +42,7 @@ case INTERFACE_TRANSACTION:
 reply.writeString(DESCRIPTOR);
 return true;
 }
-case TRANSACTION_basicTypes:
-{
-data.enforceInterface(DESCRIPTOR);
-int _arg0;
-_arg0 = data.readInt();
-long _arg1;
-_arg1 = data.readLong();
-boolean _arg2;
-_arg2 = (0!=data.readInt());
-float _arg3;
-_arg3 = data.readFloat();
-double _arg4;
-_arg4 = data.readDouble();
-String _arg5;
-_arg5 = data.readString();
-this.basicTypes(_arg0, _arg1, _arg2, _arg3, _arg4, _arg5);
-reply.writeNoException();
-return true;
-}
-case TRANSACTION_test:
+case TRANSACTION_setObject:
 {
 data.enforceInterface(DESCRIPTOR);
 sample.adam.aidlsample.model.MyObject _arg0;
@@ -71,8 +52,38 @@ _arg0 = sample.adam.aidlsample.model.MyObject.CREATOR.createFromParcel(data);
 else {
 _arg0 = null;
 }
-this.test(_arg0);
+this.setObject(_arg0);
 reply.writeNoException();
+return true;
+}
+case TRANSACTION_getObjectMethod1:
+{
+data.enforceInterface(DESCRIPTOR);
+sample.adam.aidlsample.model.MyObject _arg0;
+_arg0 = new sample.adam.aidlsample.model.MyObject();
+this.getObjectMethod1(_arg0);
+reply.writeNoException();
+if ((_arg0!=null)) {
+reply.writeInt(1);
+_arg0.writeToParcel(reply, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+}
+else {
+reply.writeInt(0);
+}
+return true;
+}
+case TRANSACTION_getObjectMethod2:
+{
+data.enforceInterface(DESCRIPTOR);
+sample.adam.aidlsample.model.MyObject _result = this.getObjectMethod2();
+reply.writeNoException();
+if ((_result!=null)) {
+reply.writeInt(1);
+_result.writeToParcel(reply, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+}
+else {
+reply.writeInt(0);
+}
 return true;
 }
 }
@@ -97,27 +108,7 @@ return DESCRIPTOR;
      * Demonstrates some basic types that you can use as parameters
      * and return values in AIDL.
      */
-@Override public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws android.os.RemoteException
-{
-android.os.Parcel _data = android.os.Parcel.obtain();
-android.os.Parcel _reply = android.os.Parcel.obtain();
-try {
-_data.writeInterfaceToken(DESCRIPTOR);
-_data.writeInt(anInt);
-_data.writeLong(aLong);
-_data.writeInt(((aBoolean)?(1):(0)));
-_data.writeFloat(aFloat);
-_data.writeDouble(aDouble);
-_data.writeString(aString);
-mRemote.transact(Stub.TRANSACTION_basicTypes, _data, _reply, 0);
-_reply.readException();
-}
-finally {
-_reply.recycle();
-_data.recycle();
-}
-}
-@Override public void test(sample.adam.aidlsample.model.MyObject obj) throws android.os.RemoteException
+@Override public void setObject(sample.adam.aidlsample.model.MyObject obj) throws android.os.RemoteException
 {
 android.os.Parcel _data = android.os.Parcel.obtain();
 android.os.Parcel _reply = android.os.Parcel.obtain();
@@ -130,7 +121,7 @@ obj.writeToParcel(_data, 0);
 else {
 _data.writeInt(0);
 }
-mRemote.transact(Stub.TRANSACTION_test, _data, _reply, 0);
+mRemote.transact(Stub.TRANSACTION_setObject, _data, _reply, 0);
 _reply.readException();
 }
 finally {
@@ -138,14 +129,55 @@ _reply.recycle();
 _data.recycle();
 }
 }
+@Override public void getObjectMethod1(sample.adam.aidlsample.model.MyObject obj) throws android.os.RemoteException
+{
+android.os.Parcel _data = android.os.Parcel.obtain();
+android.os.Parcel _reply = android.os.Parcel.obtain();
+try {
+_data.writeInterfaceToken(DESCRIPTOR);
+mRemote.transact(Stub.TRANSACTION_getObjectMethod1, _data, _reply, 0);
+_reply.readException();
+if ((0!=_reply.readInt())) {
+obj.readFromParcel(_reply);
 }
-static final int TRANSACTION_basicTypes = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
-static final int TRANSACTION_test = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
+}
+finally {
+_reply.recycle();
+_data.recycle();
+}
+}
+@Override public sample.adam.aidlsample.model.MyObject getObjectMethod2() throws android.os.RemoteException
+{
+android.os.Parcel _data = android.os.Parcel.obtain();
+android.os.Parcel _reply = android.os.Parcel.obtain();
+sample.adam.aidlsample.model.MyObject _result;
+try {
+_data.writeInterfaceToken(DESCRIPTOR);
+mRemote.transact(Stub.TRANSACTION_getObjectMethod2, _data, _reply, 0);
+_reply.readException();
+if ((0!=_reply.readInt())) {
+_result = sample.adam.aidlsample.model.MyObject.CREATOR.createFromParcel(_reply);
+}
+else {
+_result = null;
+}
+}
+finally {
+_reply.recycle();
+_data.recycle();
+}
+return _result;
+}
+}
+static final int TRANSACTION_setObject = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+static final int TRANSACTION_getObjectMethod1 = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
+static final int TRANSACTION_getObjectMethod2 = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
 }
 /**
      * Demonstrates some basic types that you can use as parameters
      * and return values in AIDL.
      */
-public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws android.os.RemoteException;
-public void test(sample.adam.aidlsample.model.MyObject obj) throws android.os.RemoteException;
+public void setObject(sample.adam.aidlsample.model.MyObject obj) throws android.os.RemoteException;
+public void getObjectMethod1(sample.adam.aidlsample.model.MyObject obj) throws android.os.RemoteException;
+public sample.adam.aidlsample.model.MyObject getObjectMethod2() throws android.os.RemoteException;
 }
